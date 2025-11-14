@@ -7,7 +7,7 @@ func _ready():
 	# Populate the level list — you can update this list anytime
 	# Add new levels here later
 	level_list.clear()
-	level_list.add_item("Tutorial of Lax rush")
+	level_list.add_item("Tutorial of Slide KiLL")
 	
 	
 	# Optional: double-click to play
@@ -34,6 +34,6 @@ func _load_selected_level():
 		return
 	var level_name = level_list.get_item_text(selected[0])
 	match level_name:
-		"Tutorial of Lax rush":
-			get_tree().change_scene_to_file("res://scenes/levels/Tutorial of Lax rush.tscn")
+		"Tutorial of Slide KiLL":
+			get_tree().change_scene_to_file("res://scenes/levels/Tutorial of Slide KiLL.tscn")
 	level_popup.hide()
