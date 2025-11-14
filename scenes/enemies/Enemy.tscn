@@ -1,0 +1,129 @@
+[gd_scene load_steps=19 format=3 uid="uid://e38yx4ebmi41"]
+
+[ext_resource type="Texture2D" uid="uid://6e3bgsmri7n6" path="res://assets/models/enemies/Enemy_0.png" id="1_hpe7p"]
+[ext_resource type="Script" uid="uid://fbh7i4n8guks" path="res://scripts/enemies/EnemyAI.gd" id="1_k7o7a"]
+[ext_resource type="Texture2D" uid="uid://c1rl58uxor153" path="res://assets/models/enemies/eye12.png" id="2_8axbs"]
+[ext_resource type="PackedScene" uid="uid://561c7gjesvl1" path="res://scenes/items/AKM.tscn" id="4_73enu"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_73enu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7iym1"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7cewq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vtlqb"]
+radius = 9.123535
+height = 40.31078
+
+[sub_resource type="SphereMesh" id="SphereMesh_vtlqb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_24b6r"]
+albedo_texture = ExtResource("2_8axbs")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tboc4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4qy4"]
+albedo_texture = ExtResource("2_8axbs")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nh2d4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0apxy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw3xv"]
+albedo_texture = ExtResource("1_hpe7p")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_refft"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_nwf2r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1y6go"]
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_k7o7a")
+
+[node name="capsule" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 19.61, 0, 0, 0, 18, 0, 16.342, 31.944)
+mesh = SubResource("CapsuleMesh_73enu")
+surface_material_override/0 = SubResource("StandardMaterial3D_7iym1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="capsule"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="capsule/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_7cewq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, 16.341854, 31.9441)
+shape = SubResource("CapsuleShape3D_vtlqb")
+
+[node name="eyes" type="MeshInstance3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 2.8800302, 30.083555, 24.301115)
+mesh = SubResource("SphereMesh_vtlqb")
+surface_material_override/0 = SubResource("StandardMaterial3D_24b6r")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="eyes"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="eyes/StaticBody3D"]
+shape = SubResource("SphereShape3D_tboc4")
+
+[node name="eyes2" type="MeshInstance3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -3.8618941, 30.083555, 24.301115)
+mesh = SubResource("SphereMesh_vtlqb")
+surface_material_override/0 = SubResource("StandardMaterial3D_n4qy4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="eyes2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="eyes2/StaticBody3D"]
+shape = SubResource("SphereShape3D_nh2d4")
+
+[node name="eyebrows" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.830842, -3.1775982e-09, -3.495931e-07, 1.5845297e-08, -2.1707883, 0.13387622, -9.46597e-07, -0.07269497, -3.9977589, -0.5389665, 33.328545, 25.527111)
+mesh = SubResource("BoxMesh_0apxy")
+surface_material_override/0 = SubResource("StandardMaterial3D_tw3xv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="eyebrows"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="eyebrows/StaticBody3D"]
+shape = SubResource("BoxShape3D_refft")
+
+[node name="belt" type="MeshInstance3D" parent="."]
+transform = Transform3D(12.546933, -3.392433e-09, -1.1632151e-06, 1.8355902e-08, -2.3175538, 0.44545168, -1.0965806e-06, -0.07760982, -13.301901, -0.44237944, 16.34113, 33.451225)
+mesh = SubResource("TorusMesh_nwf2r")
+surface_material_override/0 = SubResource("StandardMaterial3D_tw3xv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="belt"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="belt/StaticBody3D"]
+shape = SubResource("CapsuleShape3D_1y6go")
+
+[node name="VisionOrigin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008465371, 29.964241, 23.663929)
+
+[node name="RayCast3D" type="RayCast3D" parent="VisionOrigin"]
+transform = Transform3D(76.684975, 0, -4.5474735e-13, 0, 1, 0, 0, 0, 63.098534, 0.04873274, 0.34471893, -0.39139175)
+visible = false
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D2" type="RayCast3D" parent="VisionOrigin"]
+transform = Transform3D(-76.66725, 0, -1.356666, 0, 1, 0, 1.6487846, 0, -63.08395, 0.048733246, 0.34471893, 11.188709)
+visible = false
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D3" type="RayCast3D" parent="VisionOrigin"]
+transform = Transform3D(73.12005, 0, -19.015053, 0, 1, 0, 23.109392, 0, 60.165215, 6.836792, 0.34471893, -0.39139175)
+visible = false
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D4" type="RayCast3D" parent="VisionOrigin"]
+transform = Transform3D(69.1651, 0, 27.25007, 0, 1, 0, -33.117584, 0, 56.91097, -5.106638, 0.34471893, -0.39139175)
+visible = false
+target_position = Vector3(0, 0, -1)
+
+[node name="Gun" parent="." instance=ExtResource("4_73enu")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6.4881587, 23.709156, 23.15086)
+player_controlled = false
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

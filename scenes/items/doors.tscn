@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://db0py22uf5lfs"]
+
+[ext_resource type="ArrayMesh" uid="uid://cp5tldoj5q5qy" path="res://assets/props/door.obj" id="1_d3qx6"]
+[ext_resource type="Script" uid="uid://brf2kwksh1phl" path="res://scripts/items/doors.gd" id="1_t8wgh"]
+
+[sub_resource type="Animation" id="Animation_t8wgh"]
+resource_name = "doors_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 2.443461, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hinge2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -2.443461, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jplt2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hinge2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qcda0"]
+resource_name = "doors_close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hinge:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 2.443461, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hinge2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -2.443461, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qcda0"]
+_data = {
+&"RESET": SubResource("Animation_jplt2"),
+&"doors_close": SubResource("Animation_qcda0"),
+&"doors_open": SubResource("Animation_t8wgh")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tct64"]
+size = Vector3(0.5720215, 14.946228, 7.2934265)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_t8wgh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qcda0")
+}
+
+[node name="hinge" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9965076, 5.203244, -3.822195)
+
+[node name="Door2" type="MeshInstance3D" parent="hinge"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 1.5538795, -18.779606, 3.7302294)
+mesh = ExtResource("1_d3qx6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="hinge/Door2"]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, -0.038317773, 0.62366253, 0.25259173)
+shape = SubResource("BoxShape3D_tct64")
+
+[node name="hinge2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1675742, 4.2339253, 11.103658)
+
+[node name="Door" type="MeshInstance3D" parent="hinge2"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 1.724946, -17.810287, -3.6649542)
+mesh = ExtResource("1_d3qx6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hinge2/Door"]
+transform = Transform3D(0.03333333, 0, 0, 0, 0.03333333, 0, 0, 0, 0.03333333, -0.038317773, 0.62366253, -0.24833417)
+shape = SubResource("BoxShape3D_tct64")

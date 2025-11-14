@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://561c7gjesvl1"]
+
+[ext_resource type="PackedScene" uid="uid://i8hvnddb40w6" path="res://assets/models/weapons/AKM.glb" id="1_g6brf"]
+[ext_resource type="Script" uid="uid://duwshpdv4g0fv" path="res://scripts/items/akm.gd" id="2_vmbaf"]
+[ext_resource type="PackedScene" uid="uid://0w1l4w35mqsf" path="res://scenes/items/bullet.tscn" id="3_0t4y3"]
+[ext_resource type="Material" uid="uid://cv3qey2qvgqse" path="res://scenes/items/AKM.tres" id="4_g7wd1"]
+
+[sub_resource type="Animation" id="Animation_g7wd1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RootNode/Armature/Skeleton3D/AKM_model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RootNode/Armature/Skeleton3D/AKM_model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0t4y3"]
+resource_name = "shoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RootNode/Armature/Skeleton3D/AKM_model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.001, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vdh08"]
+resource_name = "rotate_gun"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RootNode/Armature/Skeleton3D/AKM_model:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5, 0.76666665, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 3.1415927, 0), Vector3(0, 4.712389, 0), Vector3(0, 6.2831855, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vdh08"]
+_data = {
+&"RESET": SubResource("Animation_g7wd1"),
+&"rotate_gun": SubResource("Animation_vdh08"),
+&"shoot": SubResource("Animation_0t4y3")
+}
+
+[node name="Gun" instance=ExtResource("1_g6brf")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("2_vmbaf")
+bullet_scene = ExtResource("3_0t4y3")
+muzzle_node = NodePath("Muzzle")
+
+[node name="AKM_model" parent="RootNode/Armature/Skeleton3D" index="0"]
+cast_shadow = 0
+surface_material_override/0 = ExtResource("4_g7wd1")
+surface_material_override/2 = ExtResource("4_g7wd1")
+surface_material_override/3 = ExtResource("4_g7wd1")
+surface_material_override/5 = ExtResource("4_g7wd1")
+surface_material_override/7 = ExtResource("4_g7wd1")
+surface_material_override/8 = ExtResource("4_g7wd1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_vdh08")
+}
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3898528, 0.688928, 0.00829017)
+target_position = Vector3(-1, 0, 0)
+
+[node name="Muzzle" type="Node3D" parent="." index="3"]
+transform = Transform3D(-4.371139e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.371139e-08, -3.4299667, 0.6924948, 0.00694588)

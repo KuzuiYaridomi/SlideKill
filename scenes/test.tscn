@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c02rlf4l6j5hg"]
+
+[ext_resource type="Script" uid="uid://cncn2vnudve32" path="res://scenes/test.gd" id="1_errlg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ij1v8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_errlg"]
+radius = 0.57470703
+height = 2.083496
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_errlg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88896954, 0)
+mesh = SubResource("CapsuleMesh_ij1v8")
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50229883, -0.035850406)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.82474256, 0)
+shape = SubResource("CapsuleShape3D_errlg")

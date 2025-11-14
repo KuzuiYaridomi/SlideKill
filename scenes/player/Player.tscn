@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkmegwgypyh2q"]
+
+[ext_resource type="Script" uid="uid://cn7ief2jxc1np" path="res://scripts/player/player.gd" id="1_wr5hl"]
+[ext_resource type="PackedScene" uid="uid://561c7gjesvl1" path="res://scenes/items/AKM.tscn" id="2_524rm"]
+[ext_resource type="PackedScene" uid="uid://b7cci7v7rss6m" path="res://scenes/ui/HUD.tscn" id="3_4kuee"]
+[ext_resource type="Script" uid="uid://dihuqsa1o8xwv" path="res://scripts/ui/motion_blur_single.gd" id="3_tpg5x"]
+[ext_resource type="Script" uid="uid://cyesw3snoknyq" path="res://scripts/Health.gd" id="4_524rm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_524rm"]
+height = 2.0297852
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_524rm"]
+bg_color = Color(0.7607843, 0.08627451, 0.14117648, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tpg5x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tpg5x"]
+radius = 0.57910156
+height = 2.0878906
+
+[node name="Player" type="RigidBody3D" groups=["player"]]
+collision_layer = 3
+collision_mask = 3
+mass = 0.3
+continuous_cd = true
+script = ExtResource("1_wr5hl")
+mass_override = 0.3
+gravity_strength = 9.8
+ground_force = 400.0
+air_force = 50.0
+max_speed = 30.0
+max_walk_speed = 30.0
+slide_knockback_scale = 5.0
+strafe_force = 30.0
+strafe_air_force = 30.0
+jump_velocity = 10.0
+jump_cooldown = 0.0
+wall_jump_vertical = 10.0
+wall_jump_horizontal = 30.0
+slide_boost_multiplier = 5.0
+slide_duration = 0.8
+slidehop_increase = 1.0
+max_slidehop_multiplier = 5.0
+slide_min_speed_for_transfer = 4.0
+slide_damage_scale = 1.0
+slide_damage_min = 3
+slope_assist_threshold_degrees = 4500.0
+slope_assist_force = 4500.0
+ground_linear_damp_high = 20.0
+ground_ray_length = 1.2
+wall_ray_distance = 0.8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_524rm")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012591183, -0.8342757, 0.47896492)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 7.4505793e-09, 0, 1, 0, -7.4505793e-09, 0, 1, 0.06930871, 1.5140578, -0.5564756)
+current = true
+
+[node name="Gun" parent="CameraPivot/Camera3D" instance=ExtResource("2_524rm")]
+transform = Transform3D(-8.742278e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742278e-09, 0.16842681, -0.48238587, -0.62404394)
+bullet_scene = null
+muzzle_node = NodePath("")
+
+[node name="Node3D" type="Node3D" parent="CameraPivot/Camera3D"]
+visible = false
+script = ExtResource("3_tpg5x")
+
+[node name="Orientation" type="Node3D" parent="."]
+
+[node name="HUD" parent="." instance=ExtResource("3_4kuee")]
+
+[node name="Health" type="Node3D" parent="."]
+script = ExtResource("4_524rm")
+owner_kill_delay = 0.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+custom_minimum_size = Vector2(250, 30)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -269.0
+offset_top = 18.0
+offset_right = -19.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_524rm")
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_tpg5x")
+
+[node name="GroundRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.94701755, 0)
+target_position = Vector3(0, -1.2, 0)
+collision_mask = 3
+
+[node name="WallRayFront" type="RayCast3D" parent="."]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -0.014113128, 0, 0)
+target_position = Vector3(0, -0.9, 0)
+collision_mask = 3
+
+[node name="WallRayBack" type="RayCast3D" parent="."]
+transform = Transform3D(4.3711385e-08, 0.9999998, 8.742276e-08, 0.9999999, -4.371138e-08, 0, 3.8213705e-15, 8.742276e-08, -0.9999998, 0, 0, 0)
+target_position = Vector3(0, -0.9, 0)
+collision_mask = 3
+
+[node name="WallRayLeft" type="RayCast3D" parent="."]
+transform = Transform3D(1.9106853e-15, 4.3711385e-08, 0.99999994, 0.9999999, -4.3711385e-08, 0, 4.3711385e-08, 0.99999994, -4.3711385e-08, 0, 0, -0.41407025)
+target_position = Vector3(0, -0.9, 0)
+collision_mask = 3
+
+[node name="WallRayRight" type="RayCast3D" parent="."]
+transform = Transform3D(1.9106853e-15, 4.3711385e-08, 0.9999999, 0.9999999, -4.3711385e-08, 0, 4.3711385e-08, 0.9999999, -4.3711385e-08, 0, 0, 0.33534777)
+target_position = Vector3(0, 0.9, 0)
+collision_mask = 3
+
+[node name="SlideHitArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8002572)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SlideHitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.043945313, -1.806067)
+shape = SubResource("CapsuleShape3D_tpg5x")

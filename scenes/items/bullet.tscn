@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://0w1l4w35mqsf"]
+
+[ext_resource type="Script" uid="uid://c3qusyfjx0o0q" path="res://scripts/items/newbullet.gd" id="1_jfrgf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tryqy"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fghtl"]
+albedo_color = Color(1, 1, 0.07058824, 1)
+emission_enabled = true
+emission = Color(0.8039216, 0.6117647, 0, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfrgf"]
+albedo_color = Color(1, 1, 0.07058824, 1)
+emission_enabled = true
+emission = Color(0.8039216, 0.6117647, 0, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tryqy"]
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_fghtl"]
+size = Vector3(0.04, 0.04, 0.04)
+
+[node name="Bullet" type="Node3D"]
+transform = Transform3D(-4.3711385e-08, 0, 0.9999999, 0, 1, 0, -0.9999999, 0, -4.3711385e-08, 0, 0, 0)
+script = ExtResource("1_jfrgf")
+damage = 10
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_tryqy")
+surface_material_override/0 = SubResource("StandardMaterial3D_fghtl")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(0.9999998, 0, 0, 0, 1, 0, 3.5527137e-15, 0, 0.77092534, -7.840187e-09, 0, 0.03700402)
+target_position = Vector3(0, 0, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.3711385e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711385e-08, -0.0035334677, 0.00018540025, 0.754751)
+material_override = SubResource("StandardMaterial3D_jfrgf")
+emitting = false
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_tryqy")
+draw_pass_1 = SubResource("BoxMesh_fghtl")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

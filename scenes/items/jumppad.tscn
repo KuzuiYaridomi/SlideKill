@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://c270djn3jdfv7"]
+
+[ext_resource type="Script" uid="uid://btdwm2wvx6bec" path="res://scripts/items/jumppad.gd" id="1_l1lm6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3gii"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l1lm6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ltb"]
+albedo_color = Color(0, 0.54509807, 0.54509807, 1)
+
+[sub_resource type="Curve" id="Curve_f0ltb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9871134, 0.36186767), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cpij4"]
+curve = SubResource("Curve_f0ltb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4d23g"]
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.14999999
+scale_curve = SubResource("CurveTexture_cpij4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vge18"]
+albedo_color = Color(1.4920532e-06, 0.5438068, 0.54490113, 1)
+emission_enabled = true
+emission = Color(0.3254902, 1, 1, 1)
+emission_energy_multiplier = 1.72
+
+[sub_resource type="BoxMesh" id="BoxMesh_tk0ih"]
+material = SubResource("StandardMaterial3D_vge18")
+size = Vector3(20, 1, 20)
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_l1lm6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(32, 0, 0, 0, 1, 0, 0, 0, 33, 0, 0, 0)
+shape = SubResource("BoxShape3D_u3gii")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(32, 0, 0, 0, 1, 0, 0, 0, 33, 0, 0, 0)
+mesh = SubResource("BoxMesh_l1lm6")
+surface_material_override/0 = SubResource("StandardMaterial3D_f0ltb")
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+transform = Transform3D(4.119491, 0, 0, 0, 1, 0, 0, 0, 4.302451, 0, 1.2220712, 0)
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 1.53
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4d23g")
+draw_pass_1 = SubResource("BoxMesh_tk0ih")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
