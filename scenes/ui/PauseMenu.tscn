@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://b3fbnfgij5jdi"]
+
+[ext_resource type="Script" uid="uid://dpg0t61bgp5oe" path="res://scenes/ui/PauseMenu.gd" id="1_7ida2"]
+[ext_resource type="FontFile" uid="uid://bptiiaqlprvkp" path="res://assets/fonts/gunplay 3d.otf" id="1_vb6pq"]
+
+[sub_resource type="FontVariation" id="FontVariation_7ida2"]
+base_font = ExtResource("1_vb6pq")
+
+[sub_resource type="Theme" id="Theme_n5dsq"]
+default_font = SubResource("FontVariation_7ida2")
+default_font_size = 50
+
+[sub_resource type="FontVariation" id="FontVariation_n5dsq"]
+base_font = ExtResource("1_vb6pq")
+
+[sub_resource type="Theme" id="Theme_5twic"]
+default_font = SubResource("FontVariation_n5dsq")
+
+[sub_resource type="FontVariation" id="FontVariation_v5pi0"]
+base_font = ExtResource("1_vb6pq")
+
+[sub_resource type="Theme" id="Theme_cctyv"]
+default_font = SubResource("FontVariation_v5pi0")
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 2
+visible = false
+follow_viewport_enabled = true
+script = ExtResource("1_7ida2")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 577.0
+offset_bottom = 349.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.003
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.26899993
+offset_top = 78.0
+offset_right = 2.0
+offset_bottom = 4.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_n5dsq")
+theme_override_colors/font_color = Color(0.4392157, 0.6431373, 1, 1)
+text = "GAME PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5twic")
+theme_override_colors/font_color = Color(0.44705883, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.6691468, 0.6737601, 1)
+theme_override_font_sizes/font_size = 30
+text = "Resume
+"
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cctyv")
+theme_override_colors/font_color = Color(0.33333334, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.67058825, 0.6745098, 1)
+theme_override_font_sizes/font_size = 27
+text = "Quit to Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]

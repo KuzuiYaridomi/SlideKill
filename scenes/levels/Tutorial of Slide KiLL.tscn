@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://ciorsvwqdyuqo"]
+[gd_scene load_steps=90 format=3 uid="uid://ciorsvwqdyuqo"]
 
 [ext_resource type="Texture2D" uid="uid://0vl4bwofuq5d" path="res://assets/textures/environment/waller.jpg" id="1_oybm7"]
 [ext_resource type="Texture2D" uid="uid://bn64xauulayy" path="res://assets/textures/environment/walls.jpg" id="2_lb0er"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://c270djn3jdfv7" path="res://scenes/items/jumppad.tscn" id="13_cq5sr"]
 [ext_resource type="Script" uid="uid://d2s3hx5imghrm" path="res://scenes/levels/spawn_points.gd" id="14_mqyqe"]
 [ext_resource type="AudioStream" uid="uid://dtaffmxr1bw86" path="res://assets/audio/music/bgmusic.ogg" id="15_uupt4"]
+[ext_resource type="PackedScene" uid="uid://b3fbnfgij5jdi" path="res://scenes/ui/PauseMenu.tscn" id="16_lb0er"]
+[ext_resource type="Script" uid="uid://cd5eiy20dgvka" path="res://scenes/levels/pause.gd" id="17_01j2o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_as2xx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -1324,6 +1326,12 @@ stream = ExtResource("15_uupt4")
 volume_db = 50.0
 autoplay = true
 max_distance = 4096.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("16_lb0er")]
+
+[node name="Node3D" type="Node3D" parent="."]
+process_mode = 3
+script = ExtResource("17_01j2o")
 
 [editable path="Player"]
 [editable path="Area3D2"]
